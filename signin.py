@@ -2,7 +2,7 @@ from tkinter import *
 from tkinter import messagebox
 import psycopg2
 import signup as connect2
-import trying
+import logic
 
 def run_signin():
     root =Tk()
@@ -47,7 +47,7 @@ def run_signin():
                 # User authenticated
                 # messagebox.Message('Success', 'Logged in successfully')
                 root.destroy()
-                trying.show_front_page()
+                logic.show_front_page()
             else:
                 # User not found or invalid credentials
                 messagebox.showerror('Error', 'Invalid username or password')
