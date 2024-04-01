@@ -3,4 +3,5 @@ virtualenv
 __pycache__
 logicClone.py
 signinClone.py
-
+database_commandsClone.py
+signupClone.py
