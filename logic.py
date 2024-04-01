@@ -1,3 +1,7 @@
+'''
+    This file is for all logic of games
+'''
+
 from tkinter import *
 from tkinter import messagebox
 import random
@@ -5,9 +9,8 @@ import sys
 
 global human_played
 human_played=True
-    
-# def beginning():
-def start_tic_tac_toe_game(receive_frontpage):
+
+def start_tic_tac_toe_game(receive_frontpage,is_comp=False):
     game_window = Tk()
     game_window.title('codemy - tictactoe')
     game_window.geometry("700x600")
@@ -45,10 +48,12 @@ def start_tic_tac_toe_game(receive_frontpage):
         b8.grid(row=2,column=1)
         b9.grid(row=2,column=2)
 
-    # Call structure function to create the game board
+        if is_comp==True:
+            score=Label(text="Score: {db_score}",font=("helvetica",20))
+            score.place(x=200,y=60)
+
+    # Calling structure function to create the game board
     structure()
-    # return b1,b2,b3,b4,b5,b6,b7,b8,b9
-    # return game_window
     game_window.mainloop()
 
 def b_click(b,window):
@@ -74,7 +79,6 @@ def b_click(b,window):
             else:
                 messagebox.showerror("Tic-Tac-Toe","That box is already selected.\nSelect another box")
         else:#for 2v2
-            print('its here for 2v2')
             if b["text"] == " " and clicked == True:
                 b["text"] = "X"
                 clicked = False
@@ -254,10 +258,7 @@ def disable_all_buttons():
 def vs_comp(recieved):
     global human_played
     human_played=False
-    start_tic_tac_toe_game(recieved)
-    print('its completed')
-    # generated_button=random.choice([b1,b2,b3,b4,b5,b6,b7,b8,b9])
-    # b_click(generated_butt)
+    start_tic_tac_toe_game(recieved,True)
 
 def twoVtwo(recieved):
     global human_played
@@ -277,7 +278,6 @@ def show_front_page():
 
     def play_vs_player():
         front_page.destroy()
-        # start_tic_tac_toe_game(show_front_page)
         twoVtwo(show_front_page)
 
     def exit_game():
