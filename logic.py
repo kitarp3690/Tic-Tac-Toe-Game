@@ -63,9 +63,16 @@ class ttt:
             if is_comp==True:
                 # store_usname,store_uspass=ttt.get_score()
                 actual_score=datab.Data.db_get_score(ttt.db_user,ttt.db_pass)
-                score=Label(text=f"Score: {actual_score}",font=("helvetica",20,"bold"),fg="blue")
+                score=Label(text=f"Score: {actual_score}", font=("helvetica",20,"bold"), fg="blue")
                 score.place(x=400,y=60)
-
+            elif is_comp==False:   
+                if clicked==True:
+                    Label(text="X Turn", font=("helvetica",20,"bold"), fg="blue").place(x=400,y=60)
+                elif clicked==False:
+                    Label(text="O Turn", font=("helvetica",20,"bold"), fg="blue").place(x=400,y=60)
+                        
+                
+        
         # Calling structure function to create the game board
         structure()
         game_window.mainloop()
@@ -93,6 +100,11 @@ class ttt:
                 else:
                     messagebox.showerror("Tic-Tac-Toe","That box is already selected.\nSelect another box")
             else:#for 2v2
+                if clicked==True:
+                    Label(text="O Turn", font=("helvetica",20,"bold"), fg="blue").place(x=400,y=60)
+                elif clicked==False:
+                    Label(text="X Turn", font=("helvetica",20,"bold"), fg="blue").place(x=400,y=60)
+                    
                 if b["text"] == " " and clicked == True:
                     b["text"] = "X"
                     clicked = False
