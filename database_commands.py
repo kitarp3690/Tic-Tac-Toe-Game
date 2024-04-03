@@ -6,6 +6,7 @@ import psycopg2
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
+import logicClone
 
 class Data:
     @staticmethod
@@ -110,6 +111,8 @@ class Data:
             # Close the leaderboard window
             def close_leaderboard():
                 leaderboard_window.destroy()
+                logicClone.ttt.show_front_page()
+
 
             close_btn = Button(leaderboard_window, text="Close", command=close_leaderboard)
             close_btn.pack()

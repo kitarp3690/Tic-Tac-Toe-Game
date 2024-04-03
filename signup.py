@@ -6,7 +6,7 @@ from tkinter import *
 from tkinter import messagebox
 import psycopg2
 from psycopg2 import Error
-import signinClone as connect1
+import signin as connect1
 
 class Ssign:
     @staticmethod
@@ -55,7 +55,7 @@ class Ssign:
                 messagebox.showerror("Invalid","Password didn't matched")
 
 
-        img=PhotoImage(file="signup.png")
+        img=PhotoImage(file="images/signup.png")
         Label(window,image=img,border=0,bg='white').place(x=50,y=90)
 
         frame=Frame(window,width=350,height=390,bg='#fff')

@@ -14,12 +14,12 @@ class ttt:
     human_played=True
     db_user=None
     db_pass=None  
+    tttimg=None
+    blackimg=None
     @staticmethod
     def store_record(id,pw):
         ttt.db_user,ttt.db_pass=id,pw
-        print(ttt.db_user,ttt.db_pass)
         ttt.show_front_page()
-        # return db_user,db_pass    
     @staticmethod
     def start_tic_tac_toe_game(receive_frontpage,is_comp=False):
         game_window = Tk()
@@ -59,10 +59,10 @@ class ttt:
             b8.grid(row=2,column=1)
             b9.grid(row=2,column=2)
 
-            # db_score=ttt.get_score()
+            #Showing the score in the front_page
             if is_comp==True:
                 # store_usname,store_uspass=ttt.get_score()
-                actual_score=datab.data.db_get_score(ttt.db_user,ttt.db_pass)
+                actual_score=datab.Data.db_get_score(ttt.db_user,ttt.db_pass)
                 score=Label(text=f"Score: {actual_score}",font=("helvetica",20,"bold"),fg="blue")
                 score.place(x=400,y=60)
 
@@ -79,7 +79,7 @@ class ttt:
                     b["text"] = "X"
                     clicked = False
                     count+=1
-                    ttt.checkifwon(window)   
+                    ttt.checkifwon(window,True)   
                     for button in [b1,b2,b3,b4,b5,b6,b7,b8,b9]:
                         if button["text"]==" ":
                             buttons_list.append(button)
@@ -89,7 +89,7 @@ class ttt:
                     b["text"]= "O"
                     clicked= True
                     count+=1
-                    ttt.checkifwon(window)
+                    ttt.checkifwon(window,True)
                 else:
                     messagebox.showerror("Tic-Tac-Toe","That box is already selected.\nSelect another box")
             else:#for 2v2
@@ -106,9 +106,10 @@ class ttt:
                 else:
                     messagebox.showerror("Tic-Tac-Toe","That box is already selected.\nSelect another box")
     @staticmethod
-    def checkifwon(game_window):
+    def checkifwon(game_window,is_comp=False):
         global winner 
         winner = False
+        player_win = False 
 
         # store_usname,store_uspass=ttt.get_score()
         if b1["text"] == "X" and b2["text"] == "X" and b3["text"] == "X":
@@ -116,81 +117,89 @@ class ttt:
             b2.config(bg="red")
             b3.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
         elif b4["text"] == "X" and b5["text"] == "X" and b6["text"] == "X":
             b4.config(bg="red")
             b5.config(bg="red")
             b6.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
         elif b7["text"] == "X" and b8["text"] == "X" and b9["text"] == "X":
             b7.config(bg="red")
             b8.config(bg="red")
             b9.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b1["text"] == "X" and b5["text"] == "X" and b9["text"] == "X":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b1["text"] == "X" and b5["text"] == "X" and b9["text"] == "X":
             b1.config(bg="red")
             b5.config(bg="red")
             b9.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b3["text"] == "X" and b5["text"] == "X" and b7["text"] == "X":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b3["text"] == "X" and b5["text"] == "X" and b7["text"] == "X":
             b3.config(bg="red")
             b5.config(bg="red")
             b7.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b1["text"] == "X" and b4["text"] == "X" and b7["text"] == "X":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b1["text"] == "X" and b4["text"] == "X" and b7["text"] == "X":
             b1.config(bg="red")
             b4.config(bg="red")
             b7.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b2["text"] == "X" and b5["text"] == "X" and b8["text"] == "X":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b2["text"] == "X" and b5["text"] == "X" and b8["text"] == "X":
             b2.config(bg="red")
             b5.config(bg="red")
             b8.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b3["text"] == "X" and b6["text"] == "X" and b9["text"] == "X":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b3["text"] == "X" and b6["text"] == "X" and b9["text"] == "X":
             b3.config(bg="red")
             b6.config(bg="red")
             b9.config(bg="red")
             winner = True
+            player_win = True
             ttt.disable_all_buttons()
-            datab.data.increase_score(ttt.db_user,ttt.db_pass)
+            # datab.Data.increase_score(ttt.db_user,ttt.db_pass)
             messagebox.showinfo("Tic-Tac-Toe","X Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
 
         #check for 0
         elif b1["text"] == "O" and b2["text"] == "O" and b3["text"] == "O":
@@ -200,8 +209,8 @@ class ttt:
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
         elif b4["text"] == "O" and b5["text"] == "O" and b6["text"] == "O":
             b4.config(bg="red")
             b5.config(bg="red")
@@ -209,8 +218,8 @@ class ttt:
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
         elif b7["text"] == "O" and b8["text"] == "O" and b9["text"] == "O":
             b7.config(bg="red")
             b8.config(bg="red")
@@ -218,61 +227,71 @@ class ttt:
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b1["text"] == "O" and b5["text"] == "O" and b9["text"] == "O":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b1["text"] == "O" and b5["text"] == "O" and b9["text"] == "O":
             b1.config(bg="red")
             b5.config(bg="red")
             b9.config(bg="red")
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b3["text"] == "O" and b5["text"] == "O" and b7["text"] == "O":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b3["text"] == "O" and b5["text"] == "O" and b7["text"] == "O":
             b3.config(bg="red")
             b5.config(bg="red")
             b7.config(bg="red")
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b1["text"] == "O" and b4["text"] == "O" and b7["text"] == "O":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b1["text"] == "O" and b4["text"] == "O" and b7["text"] == "O":
             b1.config(bg="red")
             b4.config(bg="red")
             b7.config(bg="red")
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b2["text"] == "O" and b5["text"] == "O" and b8["text"] == "O":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b2["text"] == "O" and b5["text"] == "O" and b8["text"] == "O":
             b2.config(bg="red")
             b5.config(bg="red")
             b8.config(bg="red")
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
-        elif  b3["text"] == "O" and b6["text"] == "O" and b9["text"] == "O":
+            # game_window.destroy()
+            # ttt.show_front_page()
+        elif b3["text"] == "O" and b6["text"] == "O" and b9["text"] == "O":
             b3.config(bg="red")
             b6.config(bg="red")
             b9.config(bg="red")
             winner = True
             ttt.disable_all_buttons()
             messagebox.showinfo("Tic-Tac-Toe","O Wins!!")
-            game_window.destroy()
-            ttt.show_front_page()
+            # game_window.destroy()
+            # ttt.show_front_page()
 
-        elif  winner==False:
+        #check for draw
+        elif  winner == False:
             if count==9:
-                winner = True
+                # winner = True
                 ttt.disable_all_buttons()
                 messagebox.showinfo("Tic-Tac-Toe","Draw !!")
                 game_window.destroy()
                 ttt.show_front_page()
+        
+        #for vs_comp check for user win
+        if winner == True:
+            if is_comp == True and player_win == True:
+                datab.Data.increase_score(ttt.db_user,ttt.db_pass)
+            else:
+                pass
+            game_window.destroy()
+            ttt.show_front_page()
     @staticmethod
     def disable_all_buttons():
         for button in [b1,b2,b3,b4,b5,b6,b7,b8,b9]:
@@ -281,18 +300,32 @@ class ttt:
     def vs_comp(recieved):
         global human_played
         human_played=False
-        ttt.start_tic_tac_toe_game(recieved,True)
+        ttt.start_tic_tac_toe_game(recieved,is_comp=True)
     @staticmethod
     def twoVtwo(recieved):
         global human_played
         human_played=True
         ttt.start_tic_tac_toe_game(recieved)
     @staticmethod
+    # Function to change button color on hover
+    def on_enter(event,butt):
+        """This method is used to show bg(background) color when mouse cursor is hovered in that button"""
+        butt.config(bg="#35E375")
+    @staticmethod
+    # Function to change button color back when mouse leaves
+    def on_leave(event,butt):
+        """This method is used to change the bg color to normal state color when mouse cursor leaves that button"""
+        butt.config(bg="SystemButtonFace")
+    @staticmethod
     def show_front_page():
         front_page = Tk()
         front_page.title('codemy - tictactoe')
         front_page.geometry('925x500+300+200')
         front_page.resizable(False,False)
+        #loading the background image        
+        global bg_image, blackimg
+        tttimg = PhotoImage(file="images/ttt.png")
+        ttt.show_bg_image(front_page,tttimg)
 
         global b1,b2,b3,b4,b5,b6,b7,b8,b9
         def play_vs_computer():
@@ -305,25 +338,40 @@ class ttt:
 
         def show_leaderboard():
             front_page.destroy()
-            datab.data.show_leaderboard()
+            datab.Data.show_leaderboard()
 
         def exit_game():
             front_page.destroy()
             sys.exit()
 
-        vs_computer_btn = Button(front_page, text="Vs Computer", command=play_vs_computer)
-        vs_computer_btn.pack()
+        vs_computer_btn = Button(front_page, text="Vs Computer", command=play_vs_computer, height=3, width=15, cursor="hand2", font=("Helvetica", 16), relief=RAISED, borderwidth=3)
+        vs_computer_btn.bind("<Enter>", lambda event: ttt.on_enter(event,vs_computer_btn))
+        vs_computer_btn.bind("<Leave>", lambda event: ttt.on_leave(event,vs_computer_btn))
+        vs_computer_btn.place(x=680,y=70)
 
-        vs_player_btn = Button(front_page, text="Vs Player", command=play_vs_player)
-        vs_player_btn.pack()
+        vs_player_btn = Button(front_page, text="Vs Player", command=play_vs_player, height=3, width=15, cursor="hand2", font=("Helvetica", 16), relief=RAISED, borderwidth=3)
+        vs_player_btn.bind("<Enter>", lambda event: ttt.on_enter(event,vs_player_btn))
+        vs_player_btn.bind("<Leave>", lambda event: ttt.on_leave(event,vs_player_btn))
+        vs_player_btn.place(x=680, y=160)
         
-        leaderboard_btn = Button(front_page, text="Leaderboard", command=show_leaderboard)
-        leaderboard_btn.pack()
+        leaderboard_btn = Button(front_page, text="Leaderboard", command=show_leaderboard, height=3, width=15, cursor="hand2", font=("Helvetica", 16), relief=RAISED, borderwidth=3)
+        leaderboard_btn.bind("<Enter>", lambda event: ttt.on_enter(event,leaderboard_btn))
+        leaderboard_btn.bind("<Leave>", lambda event: ttt.on_leave(event,leaderboard_btn))
+        leaderboard_btn.place(x=680,y=250)
 
-        exit_btn = Button(front_page, text="Exit", command=exit_game)
-        exit_btn.pack()
+        exit_btn = Button(front_page, text="Exit", command=exit_game, height=3, width=15, cursor="hand2", font=("Helvetica", 16),relief=RAISED, borderwidth=3)
+        exit_btn.bind("<Enter>", lambda event: ttt.on_enter(event,exit_btn))
+        exit_btn.bind("<Leave>", lambda event: ttt.on_leave(event,exit_btn))
+        exit_btn.place(x=680, y=340)
 
         front_page.mainloop()
+    @staticmethod
+    def show_bg_image(front, tttimg):
+        tttimg_width = int(front.winfo_width() * 0.9)
 
+        #creating label with tttimg bg img
+        my_label = Label(front, image=tttimg, width=tttimg_width )
+        my_label.place(x=0, y=0, relheight=1)
+    
 if __name__=="__main__":
     ttt.show_front_page()

@@ -6,7 +6,7 @@ from tkinter import *
 from tkinter import messagebox
 import psycopg2
 import signup as connect2
-import logicClone as bb
+import logic as bb
 
 class Sign:
     @staticmethod
@@ -22,7 +22,7 @@ class Sign:
             connect2.Ssign.run_signup()
 
         #this is photo of boy and girl
-        img= PhotoImage(file='login.png')
+        img= PhotoImage(file='images/login.png')
         Label(root,image=img,bg='white').place(x=50,y=50)
 
         #this is the frame where all username,password and signin option is there
