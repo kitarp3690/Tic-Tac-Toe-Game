@@ -9,8 +9,13 @@ import signup as connect2
 import logic as bb
 
 class Sign:
+    """This class contains code for Sign in function"""
     @staticmethod
     def run_signin():
+        """This function is used to show the signin page\n
+        Returns:
+            It shows the Signin page
+        """
         root =Tk()
         root.title('Login')
         root.geometry('925x500+300+200')
@@ -18,11 +23,15 @@ class Sign:
         root.resizable(False,False)
 
         def signup_window():
+            """This function is used to call signup function from signup module\n
+            Returns:
+                It returns the Signup page
+            """
             root.destroy()
             connect2.Ssign.run_signup()
 
         #this is photo of boy and girl
-        img= PhotoImage(file='images/login.png')
+        img:PhotoImage= PhotoImage(file='images/login.png')
         Label(root,image=img,bg='white').place(x=50,y=50)
 
         #this is the frame where all username,password and signin option is there
@@ -30,11 +39,12 @@ class Sign:
         frame.place(x=480,y=70)
 
         #this is the sign in header 
-        heading=Label(frame,text='Sign in ', fg='#57a1f8',bg='white',font=('Microsoft YaHei UI Ligth',23,'bold'))
+        heading:Label=Label(frame,text='Sign in ', fg='#57a1f8',bg='white',font=('Microsoft YaHei UI Ligth',23,'bold'))
         heading.place(x=100,y=5)
 
         #this function is used when signin button is pressed to get name and password
         def signing():
+            """This function is used for authentication process"""
             username=user.get()
             password=code.get()
             
@@ -50,18 +60,11 @@ class Sign:
                 cursor.execute("select * from details where username=%s and password=%s",(username,password))
                 result=cursor.fetchone()
                 if result:
-                    # sign.db_un=username
-                    # sign.db_pw=password
-                    # User authenticated
-                    # messagebox.Message('Success', 'Logged in successfully')
                     root.destroy()
                     bb.ttt.store_record(username,password)
-                    # bb.ttt.show_front_page()
                 else:
-                    # User not found or invalid credentials
                     messagebox.showerror('Error', 'Invalid username or password')
 
-                # Close cursor and connection
                 cursor.close()
                 connection.close()
 
@@ -71,8 +74,10 @@ class Sign:
 
         ######-------------------------------------------
         def user_on_enter(e):
+            """This function is used to clear input from username field"""
             user.delete(0,'end')
         def user_on_leave(e):
+            """This function is used to insert words when user leaves from username field"""
             name=user.get()
             if name=='':
                 user.insert(0,'Username')
@@ -89,8 +94,10 @@ class Sign:
 
         ######----------------------------
         def code_on_enter(e):
+            """This function is used to delete words when user press in password field"""
             code.delete(0,'end')
         def code_on_leave(e):
+            """This function is used to insert words when user leaves from password field"""
             name=code.get()
             if name=='':
                 code.insert(0,'Password')

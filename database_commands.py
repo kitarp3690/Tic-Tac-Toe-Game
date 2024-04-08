@@ -6,11 +6,19 @@ import psycopg2
 from tkinter import *
 from tkinter import messagebox
 from tkinter import ttk
-import logicClone
+import logic
 
 class Data:
+    """Class data is used for connectng with database"""
     @staticmethod
-    def db_get_score(un,pw):
+    def db_get_score(un: str,pw: str) -> int:
+        """This function is used to fetch user score from the database\n
+        Args: 
+            un(str): This is the username
+            pw(str): This is the password\n
+        Return: 
+            This method returns the score 
+        """
         try:
             connection=psycopg2.connect(
                 dbname="firstTry",
@@ -39,7 +47,14 @@ class Data:
                 messagebox.showerror('Error', f'Database error: {error}')
 
     @staticmethod
-    def increase_score(un,pw):
+    def increase_score(un: str,pw: str) -> None:
+        """This function is used to increase user score in the database\n
+        Args: 
+            un(str): This is the username
+            pw(str): This is the password\n
+        Returns:
+            This method returns the score 
+        """
         try:
             connection=psycopg2.connect(
                 dbname="firstTry",
@@ -67,7 +82,11 @@ class Data:
                 messagebox.showerror('Error', f'Database error: {error}')
    
     @staticmethod
-    def show_leaderboard():
+    def show_leaderboard(un: str, pw: str):
+        """This method shows the leaderboard\n
+        Return: 
+            It returns the leaderboard
+        """
         try:
             # Establish connection to the database
             connection = psycopg2.connect(
@@ -100,9 +119,14 @@ class Data:
             tree.heading("Username", text="Username")
             tree.heading("Score", text="Score")
 
+            tree.tag_configure('highlight',background='#58E35F')
+
             # Insert data into the Treeview
             for i, (username, score) in enumerate(leaderboard_data, start=1):
-                tree.insert("", "end", values=(i, username, score))
+                if username == un :
+                    tree.insert("", "end", values=(i, username, score), tags=('highlight'))
+                else:
+                    tree.insert("", "end", values=(i, username, score))
 
             tree.tag_configure('right_align', anchor='e')  # Align values to the right
 
@@ -111,8 +135,7 @@ class Data:
             # Close the leaderboard window
             def close_leaderboard():
                 leaderboard_window.destroy()
-                logicClone.ttt.show_front_page()
-
+                logic.ttt.show_front_page(un, pw)
 
             close_btn = Button(leaderboard_window, text="Close", command=close_leaderboard)
             close_btn.pack()
@@ -123,4 +146,5 @@ class Data:
             messagebox.showerror('Error', f'Database error: {error}')
 
 if __name__=="__main__":
-    Data.show_leaderboard()
+    Data.show_leaderboard('admin','admin')
+    # pass

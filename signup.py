@@ -9,8 +9,10 @@ from psycopg2 import Error
 import signin as connect1
 
 class Ssign:
+    """This class is used for Signup function"""
     @staticmethod
     def run_signup():
+        """This method is used for signup"""
         window=Tk()
         window.title('Sign Up')
         window.geometry('925x500+300+200')
@@ -18,10 +20,15 @@ class Ssign:
         window.resizable(False,False)
 
         def signin_window():
+            """This function is used to return Signin page from signin module\n
+            Returns:
+                It returns the run_signin() function from siginin module
+            """
             window.destroy()
             connect1.Sign.run_signin()
 
         def signup():
+            """This function is used for singup"""
             username=user.get()
             password=code.get()
             confirm_password=confirm_code.get()
@@ -66,8 +73,10 @@ class Ssign:
 
         ##############
         def user_on_enter(e):
+            """This function is used to clear input from username field"""
             user.delete(0,'end')
         def user_on_leave(e):
+            """This function is used to insert words when user leaves from username field"""
             name=user.get()
             if name=='':
                 user.insert(0,'Username')
@@ -81,8 +90,10 @@ class Ssign:
 
         ##############
         def code_on_enter(e):
+            """This function is used to delete words when user press in password field"""
             code.delete(0,'end')
         def code_on_leave(e):
+            """This function is used to insert words when user leaves from password field"""
             if code.get()=='':
                 code.insert(0,'Password')
         code=Entry(frame,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Ligth',11))
@@ -95,8 +106,10 @@ class Ssign:
 
         ##############
         def confirm_on_enter(e):
+            """This function is used to delete words when user press in confirm password field"""
             confirm_code.delete(0,'end')
         def confirm_on_leave(e):
+            """This function is used to insert words when user leaves from confirm password field"""
             if confirm_code.get()=='':
                 confirm_code.insert(0,'Confirm Password')
         confirm_code=Entry(frame,width=25,fg='black',border=0,bg='white',font=('Microsoft Yahei UI Ligth',11))

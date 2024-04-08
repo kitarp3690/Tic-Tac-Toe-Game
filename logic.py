@@ -10,6 +10,7 @@ import signinClone as sn
 import database_commands as datab
 
 class ttt:
+    """This class contains all the logic portion"""
     global human_played
     human_played=True
     db_user=None
@@ -17,11 +18,16 @@ class ttt:
     tttimg=None
     blackimg=None
     @staticmethod
-    def store_record(id,pw):
+    def store_record(id:str,pw:str):
+        """This method is used to show front page\n
+        Returns:
+            It return the show_front_page() method
+        """
         ttt.db_user,ttt.db_pass=id,pw
-        ttt.show_front_page()
+        ttt.show_front_page(id, pw)
     @staticmethod
     def start_tic_tac_toe_game(receive_frontpage,is_comp=False):
+        """This method is used to show 3*3 grid"""
         game_window = Tk()
         game_window.title('codemy - tictactoe')
         game_window.geometry("700x600")
@@ -78,6 +84,7 @@ class ttt:
         game_window.mainloop()
     @staticmethod
     def b_click(b,window):
+            """This method is used to insert X or O to the button"""
             global clicked,count
             #for vs computer
             if not human_played:
@@ -119,6 +126,7 @@ class ttt:
                     messagebox.showerror("Tic-Tac-Toe","That box is already selected.\nSelect another box")
     @staticmethod
     def checkifwon(game_window,is_comp=False):
+        """This method is used to check if won or not"""
         global winner 
         winner = False
         player_win = False 
@@ -294,7 +302,7 @@ class ttt:
                 ttt.disable_all_buttons()
                 messagebox.showinfo("Tic-Tac-Toe","Draw !!")
                 game_window.destroy()
-                ttt.show_front_page()
+                ttt.show_front_page(ttt.db_user,ttt.db_pass)
         
         #for vs_comp check for user win
         if winner == True:
@@ -303,18 +311,21 @@ class ttt:
             else:
                 pass
             game_window.destroy()
-            ttt.show_front_page()
+            ttt.show_front_page(ttt.db_user,ttt.db_pass)
     @staticmethod
     def disable_all_buttons():
+        """This method is to disable buttons when won"""
         for button in [b1,b2,b3,b4,b5,b6,b7,b8,b9]:
             button.config(state=DISABLED)
     @staticmethod
     def vs_comp(recieved):
+        """This method is used to start Vs computer mode"""
         global human_played
         human_played=False
         ttt.start_tic_tac_toe_game(recieved,is_comp=True)
     @staticmethod
     def twoVtwo(recieved):
+        """This method is used to start 2v2 mode"""
         global human_played
         human_played=True
         ttt.start_tic_tac_toe_game(recieved)
@@ -329,7 +340,8 @@ class ttt:
         """This method is used to change the bg color to normal state color when mouse cursor leaves that button"""
         butt.config(bg="SystemButtonFace")
     @staticmethod
-    def show_front_page():
+    def show_front_page(usn: str, pwd: str):
+        """This method is used to show front page that is page that shows options to play which mode"""
         front_page = Tk()
         front_page.title('codemy - tictactoe')
         front_page.geometry('925x500+300+200')
@@ -348,9 +360,9 @@ class ttt:
             front_page.destroy()
             ttt.twoVtwo(ttt.show_front_page)
 
-        def show_leaderboard():
+        def show_leaderboard(usn: str, pwd: str):
             front_page.destroy()
-            datab.Data.show_leaderboard()
+            datab.Data.show_leaderboard(usn,pwd)
 
         def exit_game():
             front_page.destroy()
@@ -366,7 +378,7 @@ class ttt:
         vs_player_btn.bind("<Leave>", lambda event: ttt.on_leave(event,vs_player_btn))
         vs_player_btn.place(x=680, y=160)
         
-        leaderboard_btn = Button(front_page, text="Leaderboard", command=show_leaderboard, height=3, width=15, cursor="hand2", font=("Helvetica", 16), relief=RAISED, borderwidth=3)
+        leaderboard_btn = Button(front_page, text="Leaderboard", command=lambda:show_leaderboard(usn,pwd), height=3, width=15, cursor="hand2", font=("Helvetica", 16), relief=RAISED, borderwidth=3)
         leaderboard_btn.bind("<Enter>", lambda event: ttt.on_enter(event,leaderboard_btn))
         leaderboard_btn.bind("<Leave>", lambda event: ttt.on_leave(event,leaderboard_btn))
         leaderboard_btn.place(x=680,y=250)
@@ -379,8 +391,8 @@ class ttt:
         front_page.mainloop()
     @staticmethod
     def show_bg_image(front, tttimg):
+        """This method is used to show background image"""
         tttimg_width = int(front.winfo_width() * 0.9)
-
         #creating label with tttimg bg img
         my_label = Label(front, image=tttimg, width=tttimg_width )
         my_label.place(x=0, y=0, relheight=1)
