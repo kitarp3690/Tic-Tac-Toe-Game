@@ -35,7 +35,7 @@ class Sign:
         Label(root,image=img,bg='white').place(x=50,y=50)
 
         #this is the frame where all username,password and signin option is there
-        frame=Frame(root,width=350,height=350,bg='white')
+        frame=Frame(root,width=370,height=350,bg='white')
         frame.place(x=480,y=70)
 
         #this is the sign in header 
@@ -92,7 +92,7 @@ class Sign:
         #this is the frame for username
         Frame(frame,width=295,height=2,bg='black').place(x=25,y=107)
 
-        ######----------------------------
+        ######----------------------------Password portion
         def code_on_enter(e):
             """This function is used to delete words when user press in password field"""
             code.delete(0,'end')
@@ -109,8 +109,20 @@ class Sign:
         code.bind('<FocusIn>', code_on_enter)
         code.bind('<FocusOut>', code_on_leave)
 
-        #this is the frame for username
-        Frame(frame,width=295,height=2,bg='black').place(x=25,y=177)
+        #This is for showing hide button
+        def show_hide():
+            if show_hide_button['text']=='Hide':
+                code.config(show='*')
+                show_hide_button.config(text='Show')
+            else:
+                code.config(show='')
+                show_hide_button.config(text='Hide')
+
+        show_hide_button = Button(frame,text='Hide',font=('Microsoft YaHei UI Ligth',11),command=show_hide,cursor="hand2")
+        show_hide_button.place(x=310,y=143)
+
+        #this is the frame for password
+        Frame(frame,width=280,height=2,bg='black').place(x=25,y=177)
 
         ######----------------------------
 
